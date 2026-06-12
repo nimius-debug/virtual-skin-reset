@@ -10,18 +10,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Deploy via SSH
+        uses: appleboy/scp-action@v0.1.7
         with:
-          server: ${{ secrets.FTP_SERVER }}
+          host: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          # Adjust this to the exact path on your server where you want the page.
-          # Example: /public_html/virtual-skin-reset/ → accessible at yourdomain.com/virtual-skin-reset/
-          server-dir: /skinbylauralo.com/virtual-skin-reset/
-          local-dir: ./
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            .github/**
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "index.html"
+          target: "/home/jgildelarosa/skinbylauralo.com/virtual-skin-reset/"
