@@ -16,7 +16,7 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /skinbylauralo.com/virtual-skin-reset/
+          server-dir: /virtual-skin-reset/
           local-dir: ./
           exclude: |
             **/.git*
