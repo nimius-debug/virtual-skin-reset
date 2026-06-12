@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FAF6F0">
+<title>Virtual Skin Reset — Skin by Laura Lo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#FAF6F0;
+  --parchment:#F2EBE0;
+  --warm-white:#FDFAF6;
+  --gold:#C8A96A;
+  --gold-light:#E8D5A8;
+  --gold-dark:#9E7E42;
+  --terra:#B06840;
+  --terra-light:#D4906A;
+  --terra-dark:#7A4428;
+  --bark:#3D2B1F;
+  --text-body:#4A3528;
+  --text-muted:#8A7060;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);background:var(--cream);color:var(--text-body);font-size:16px;line-height:1.7;overflow-x:hidden}
+a,button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 56px;
+  padding-top:calc(16px + env(safe-area-inset-top));
+  background:rgba(250,246,240,0.95);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border-bottom:0.5px solid rgba(200,169,106,0.22);
+}
+.nav-logo{font-family:var(--serif);font-size:19px;font-weight:400;letter-spacing:.05em;color:var(--bark);text-decoration:none}
+.nav-logo em{color:var(--gold-dark);font-style:italic}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:13px;color:var(--text-muted);text-decoration:none;transition:color .2s;letter-spacing:.01em}
+.nav-link:hover{color:var(--bark)}
+.nav-cta{
+  font-size:11px;font-weight:500;letter-spacing:.11em;text-transform:uppercase;
+  color:var(--warm-white);background:var(--terra);
+  padding:11px 24px;border-radius:2px;text-decoration:none;
+  transition:background .2s;
+}
+.nav-cta:hover{background:var(--terra-dark)}
+
+/* ── HERO ── */
+.hero{
+  min-height:100vh;
+  min-height:100svh;
+  display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;
+  padding:116px 56px 80px;gap:72px;
+  background:var(--warm-white);
+}
+.eyebrow{
+  font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-dark);margin-bottom:18px;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before{content:'';display:block;width:26px;height:.5px;background:var(--gold-dark)}
+h1{
+  font-family:var(--serif);
+  font-size:clamp(46px,5.5vw,76px);
+  font-weight:300;line-height:1.06;
+  color:var(--bark);margin-bottom:22px;
+}
+h1 em{font-style:italic;color:var(--terra)}
+.hero-sub{font-size:17px;color:var(--text-muted);line-height:1.68;margin-bottom:28px;max-width:460px}
+.urgency-bar{
+  display:inline-flex;align-items:center;gap:10px;
+  background:#FFF3E8;border:1px solid #E8C69A;
+  border-radius:40px;padding:9px 20px;
+  font-size:13px;color:var(--terra-dark);margin-bottom:32px;
+}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--terra);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.75)}}
+.hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.btn-main{
+  font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--warm-white);background:var(--terra);
+  border:none;padding:17px 38px;border-radius:2px;
+  cursor:pointer;text-decoration:none;display:inline-block;
+  transition:background .2s,transform .15s;
+}
+.btn-main:hover{background:var(--terra-dark);transform:translateY(-1px)}
+.btn-ghost{font-size:14px;color:var(--text-muted);text-decoration:none;border-bottom:1px solid currentColor;transition:color .2s;padding-bottom:1px}
+.btn-ghost:hover{color:var(--bark)}
+.hero-micro{font-size:12px;color:var(--text-muted)}
+.hero-micro strong{color:var(--terra)}
+
+/* ── HERO RIGHT — value card ── */
+.value-card{
+  background:var(--parchment);border-radius:12px;
+  border:.5px solid rgba(200,169,106,.45);padding:32px 36px;
+}
+.vc-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:20px}
+.vs-list{list-style:none}
+.vs-list li{
+  display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+  padding:10px 0;border-bottom:.5px solid rgba(200,169,106,.2);font-size:14px;
+}
+.vs-list li:last-child{border-bottom:none}
+.vs-name{color:var(--text-body);display:flex;align-items:flex-start;gap:9px}
+.chk{width:15px;height:15px;border-radius:50%;background:var(--terra);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.chk::after{content:'';display:block;width:4px;height:6.5px;border-right:1.5px solid white;border-bottom:1.5px solid white;transform:rotate(45deg) translate(-1px,-1px)}
+.vs-val{font-size:12px;color:var(--text-muted);white-space:nowrap;text-align:right}
+.vs-val s{opacity:.45}
+.vc-total{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(200,169,106,.4);
+}
+.vc-total-label{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin-bottom:2px}
+.vc-total-sub{font-size:12px;color:var(--text-muted)}
+.vc-price{text-align:right}
+.vc-orig{font-size:15px;color:var(--text-muted);text-decoration:line-through}
+.vc-amount{font-family:var(--serif);font-size:44px;font-weight:300;color:var(--terra);line-height:1}
+.mini-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px}
+.mini-box{background:var(--warm-white);border:.5px solid rgba(200,169,106,.3);border-radius:6px;padding:13px;text-align:center}
+.mini-n{font-family:var(--serif);font-size:24px;font-weight:300;color:var(--bark);line-height:1}
+.mini-l{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--text-muted);margin-top:3px}
+
+/* ── SHARED SECTION ── */
+section{padding:96px 56px}
+.inner{max-width:1100px;margin:0 auto}
+.sec-eye{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-dark);margin-bottom:12px}
+.sec-h{font-family:var(--serif);font-size:clamp(32px,3.8vw,54px);font-weight:300;line-height:1.12;color:var(--bark);margin-bottom:16px}
+.sec-h em{font-style:italic;color:var(--terra)}
+.sec-lead{font-size:16px;color:var(--text-muted);max-width:520px;line-height:1.68}
+
+/* ── PROBLEM STRIP ── */
+.problem-strip{background:var(--bark);padding:70px 56px}
+.problem-strip h2{font-family:var(--serif);font-size:clamp(26px,3vw,44px);font-weight:300;color:var(--parchment);line-height:1.25;margin-bottom:36px;max-width:560px}
+.problem-strip h2 em{color:var(--gold-light);font-style:italic}
+.prob-tags{display:flex;flex-wrap:wrap;gap:10px}
+.prob-tag{background:rgba(255,255,255,.06);border:.5px solid rgba(200,169,106,.2);border-radius:40px;padding:10px 20px;font-size:13px;color:var(--gold-light)}
+.prob-note{margin-top:32px;font-family:var(--serif);font-style:italic;font-size:19px;color:rgba(255,255,255,.3)}
+
+/* ── SERVICE CARD (single) ── */
+.service-section{background:var(--cream)}
+.single-card{
+  background:var(--bark);border-radius:14px;
+  border:1.5px solid var(--gold);
+  padding:56px 56px 52px;
+  margin-top:52px;
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;
+  position:relative;overflow:hidden;
+}
+.single-card::before{
+  content:'';position:absolute;top:-100px;right:-100px;
+  width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(200,169,106,.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.sc-badge{
+  position:absolute;top:24px;right:24px;
+  background:var(--terra);color:white;
+  font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  padding:6px 16px;border-radius:20px;
+}
+.sc-left{}
+.sc-tag{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:10px}
+.sc-name{font-family:var(--serif);font-size:clamp(30px,3.2vw,44px);font-weight:300;color:var(--parchment);line-height:1.15;margin-bottom:6px}
+.sc-meta{font-size:13px;color:rgba(255,255,255,.35);margin-bottom:22px;display:flex;gap:16px}
+.sc-desc{font-size:15px;color:rgba(255,255,255,.55);line-height:1.72;margin-bottom:28px}
+.sc-price{margin-bottom:28px}
+.sc-price-amount{font-family:var(--serif);font-size:60px;font-weight:300;color:var(--terra-light);line-height:1}
+.sc-price-note{font-size:13px;color:rgba(255,255,255,.3);margin-top:4px}
+.btn-sc{
+  display:inline-block;padding:17px 40px;
+  font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--terra);color:white;border-radius:2px;text-decoration:none;
+  transition:background .2s,transform .15s;border:none;cursor:pointer;
+}
+.btn-sc:hover{background:var(--terra-dark);transform:translateY(-1px)}
+.sc-right{}
+.inc-title{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold-light);margin-bottom:18px}
+.inc-list{list-style:none}
+.inc-list li{
+  display:flex;gap:12px;align-items:flex-start;
+  font-size:14px;color:rgba(255,255,255,.6);
+  padding:10px 0;border-bottom:.5px solid rgba(255,255,255,.07);line-height:1.55;
+}
+.inc-list li:last-child{border-bottom:none}
+.inc-list li strong{color:rgba(255,255,255,.85);display:block;font-weight:500;margin-bottom:1px}
+.inc-dot{width:14px;height:14px;border-radius:50%;background:var(--terra-light);flex-shrink:0;margin-top:3px;display:flex;align-items:center;justify-content:center}
+.inc-dot::after{content:'';display:block;width:3.5px;height:6px;border-right:1.5px solid white;border-bottom:1.5px solid white;transform:rotate(45deg) translate(-1px,-1px)}
+
+/* ── BEFORE & AFTER ── */
+.ba-section{background:var(--parchment)}
+.ba-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:52px;
+}
+.ba-card{
+  background:var(--warm-white);
+  border-radius:10px;
+  border:.5px solid rgba(200,169,106,.35);
+  overflow:hidden;
+  position:relative;
+}
+.ba-images{
+  position:relative;
+}
+.ba-images img{
+  width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;
+  display:block;
+}
+.ba-images img:last-of-type{
+  border-top:.5px solid rgba(200,169,106,.3);
+}
+.ba-divider{
+  position:absolute;left:0;right:0;top:50%;
+  height:1px;width:100%;background:var(--gold);
+  display:flex;align-items:center;justify-content:center;
+  z-index:2;
+  transform:translateY(-50%);
+}
+.ba-divider-pill{
+  background:var(--bark);
+  border:1px solid var(--gold);
+  border-radius:20px;
+  padding:4px 10px;
+  display:flex;gap:5px;align-items:center;
+  white-space:nowrap;
+}
+.ba-divider-pill span{font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.ba-divider-pill span:first-child{color:rgba(255,255,255,.4)}
+.ba-divider-pill span:last-child{color:var(--gold-light)}
+.ba-label-before,.ba-label-after{
+  position:absolute;
+  font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  background:rgba(30,18,10,.6);color:rgba(255,255,255,.7);
+  padding:4px 8px;border-radius:3px;
+  z-index:3;left:8px;
+}
+.ba-label-before{bottom:8px}
+.ba-label-after{top:8px}
+.ba-info{padding:16px 18px 18px}
+.ba-concern{
+  font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold-dark);margin-bottom:5px;
+}
+.ba-result{font-family:var(--serif);font-size:17px;font-weight:300;color:var(--bark);line-height:1.35;margin-bottom:6px}
+.ba-timeline{font-size:12px;color:var(--text-muted)}
+
+/* wide card spanning full width */
+.ba-wide{grid-column:1/-1}
+.ba-wide .ba-images img{aspect-ratio:16/9}
+
+/* ── BONUS BREAKDOWN ── */
+.bonus-section{background:var(--cream)}
+.bonus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+.bonus-card{background:var(--warm-white);border-radius:8px;border:.5px solid rgba(200,169,106,.3);padding:26px 22px}
+.b-icon{font-size:22px;margin-bottom:12px;display:block}
+.b-name{font-family:var(--serif);font-size:19px;font-weight:400;color:var(--bark);margin-bottom:4px;line-height:1.3}
+.b-val{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--terra);margin-bottom:8px}
+.b-desc{font-size:13px;color:var(--text-muted);line-height:1.65}
+
+/* ── VALUE STACK TABLE ── */
+.stack-section{background:var(--parchment)}
+.stack-wrap{max-width:680px;margin:48px auto 0}
+.stack-table{width:100%;border-collapse:collapse}
+.stack-table tr{border-bottom:.5px solid rgba(200,169,106,.2)}
+.stack-table tr:last-child{border-bottom:none}
+.stack-table td{padding:15px 10px;font-size:14px;color:var(--text-body);vertical-align:middle}
+.stack-table td:first-child{width:58%;padding-left:0;font-weight:500;color:var(--bark)}
+.stack-table td:last-child{text-align:right;padding-right:0;font-family:var(--serif);font-size:18px;color:var(--text-muted)}
+.stack-total td{border-top:1.5px solid var(--gold);padding-top:20px}
+.stack-total td:first-child{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--bark)}
+.stack-total td:last-child{font-family:var(--serif);font-size:36px;font-weight:300;color:var(--terra)}
+.stack-you td:first-child{color:var(--terra);font-size:15px}
+.stack-you td:last-child{color:var(--bark);font-size:22px}
+.stack-note{
+  margin-top:28px;background:var(--warm-white);border-radius:8px;
+  border:.5px solid rgba(200,169,106,.35);padding:18px 24px;
+  display:flex;align-items:center;gap:14px;font-size:14px;color:var(--text-body);
+}
+.stack-note strong{color:var(--terra)}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--warm-white)}
+.how-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:0;margin-top:52px;position:relative;
+}
+.how-grid::before{content:'';position:absolute;top:27px;left:13%;right:13%;height:.5px;background:var(--gold-light)}
+.how-step{text-align:center;padding:0 14px;position:relative;z-index:1}
+.how-circle{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--cream);border:1px solid var(--gold-light);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 16px;
+  font-family:var(--serif);font-size:19px;font-weight:300;color:var(--gold-dark);
+}
+.how-step h4{font-family:var(--serif);font-size:17px;font-weight:400;color:var(--bark);margin-bottom:7px}
+.how-step p{font-size:13px;color:var(--text-muted);line-height:1.6}
+
+/* ── GUARANTEE ── */
+.guar-section{background:var(--cream)}
+.guar-box{
+  max-width:740px;margin:44px auto 0;
+  background:var(--warm-white);border-radius:12px;
+  border:.5px solid rgba(200,169,106,.4);
+  padding:52px 60px;text-align:center;
+}
+.guar-seal{
+  width:72px;height:72px;border-radius:50%;background:var(--terra);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  margin:0 auto 24px;
+}
+.gs-n{font-family:var(--serif);font-size:20px;font-weight:300;color:white;line-height:1}
+.gs-s{font-size:8px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.guar-box h3{font-family:var(--serif);font-size:32px;font-weight:300;color:var(--bark);margin-bottom:14px}
+.guar-box h3 em{font-style:italic;color:var(--terra)}
+.guar-box p{font-size:15px;color:var(--text-muted);line-height:1.72;max-width:480px;margin:0 auto}
+
+/* ── SOCIAL PROOF ── */
+.proof-section{background:var(--parchment)}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.rv-card{background:var(--warm-white);border-radius:8px;border:.5px solid rgba(200,169,106,.3);padding:26px}
+.stars{color:var(--gold);letter-spacing:2px;margin-bottom:12px;font-size:14px}
+.rv-text{font-family:var(--serif);font-size:17px;font-weight:300;font-style:italic;color:var(--bark);line-height:1.6;margin-bottom:16px}
+.rv-name{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)}
+
+/* ── SCARCITY STRIP ── */
+.scarcity{background:var(--bark);padding:68px 56px;text-align:center}
+.sc-inner{max-width:600px;margin:0 auto}
+.scarcity h2{font-family:var(--serif);font-size:clamp(28px,3.5vw,46px);font-weight:300;color:var(--parchment);margin-bottom:14px;line-height:1.2}
+.scarcity h2 em{color:var(--gold-light);font-style:italic}
+.scarcity p{font-size:16px;color:rgba(255,255,255,.45);margin-bottom:28px;line-height:1.65}
+.spot-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(200,169,106,.1);border:1px solid rgba(200,169,106,.3);
+  border-radius:40px;padding:11px 22px;font-size:13px;color:var(--gold-light);
+  margin-bottom:28px;letter-spacing:.03em;
+}
+.credit-box{
+  display:inline-block;
+  background:rgba(176,104,64,.18);border:1px solid rgba(176,104,64,.38);
+  border-radius:6px;padding:13px 26px;font-size:14px;color:var(--terra-light);
+  margin-bottom:28px;
+}
+
+/* ── FAQ ── */
+.faq-section{background:var(--warm-white)}
+.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:26px 68px;margin-top:52px}
+.faq-q{font-family:var(--serif);font-size:18px;font-weight:400;color:var(--bark);margin-bottom:9px;line-height:1.38}
+.faq-a{font-size:14px;color:var(--text-muted);line-height:1.75}
+
+/* ── FINAL CTA ── */
+.final-cta{background:var(--parchment);padding:116px 56px;text-align:center}
+.final-cta h2{font-family:var(--serif);font-size:clamp(36px,4.5vw,64px);font-weight:300;color:var(--bark);line-height:1.1;margin-bottom:18px;max-width:600px;margin-left:auto;margin-right:auto}
+.final-cta h2 em{font-style:italic;color:var(--terra)}
+.final-cta p{font-size:17px;color:var(--text-muted);margin-bottom:38px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.65}
+.final-micro{margin-top:18px;font-size:12px;color:var(--text-muted);line-height:1.9}
+.final-micro strong{color:var(--terra)}
+
+/* ── FOOTER ── */
+footer{background:var(--bark);padding:44px 56px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
+.f-logo{font-family:var(--serif);font-size:18px;font-weight:300;color:var(--parchment);letter-spacing:.04em}
+.f-logo em{color:var(--gold-light);font-style:italic}
+footer p{font-size:12px;color:rgba(255,255,255,.28)}
+.f-links{display:flex;gap:20px}
+.f-links a{font-size:12px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--gold-light)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  nav{padding:14px 24px}
+  .nav-links .nav-link{display:none}
+  .hero{grid-template-columns:1fr;padding:96px 26px 56px;gap:44px}
+  .single-card{grid-template-columns:1fr;gap:40px;padding:40px 28px}
+  .ba-grid{grid-template-columns:1fr 1fr}
+  .ba-wide{grid-column:span 2}
+  .bonus-grid{grid-template-columns:1fr 1fr}
+  .how-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .how-grid::before{display:none}
+  .reviews-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr;gap:26px}
+  section{padding:70px 26px}
+  .problem-strip,.scarcity,.final-cta{padding-left:26px;padding-right:26px}
+  .guar-box{padding:36px 26px}
+  footer{padding:38px 26px}
+}
+/* ── STICKY MOBILE CTA ── */
+.mobile-cta{
+  display:none;
+  position:fixed;left:0;right:0;bottom:0;z-index:99;
+  align-items:center;justify-content:space-between;gap:14px;
+  background:rgba(253,250,246,.97);
+  -webkit-backdrop-filter:blur(16px);
+  backdrop-filter:blur(16px);
+  border-top:.5px solid rgba(200,169,106,.4);
+  padding:12px 20px;
+  padding-bottom:calc(12px + env(safe-area-inset-bottom));
+}
+.mobile-cta-text{font-size:13px;color:var(--text-muted);line-height:1.4}
+.mobile-cta-text strong{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--terra);margin-right:6px}
+.mobile-cta-btn{
+  flex-shrink:0;
+  font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--warm-white);background:var(--terra);
+  padding:14px 26px;border-radius:2px;text-decoration:none;
+}
+.mobile-cta-btn:active{background:var(--terra-dark)}
+
+@media(max-width:560px){
+  html{scroll-padding-top:62px}
+  body{padding-bottom:76px} /* room for sticky CTA */
+
+  /* nav */
+  nav{padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top))}
+  .nav-logo{font-size:17px}
+  .nav-cta{padding:10px 16px;font-size:10px;letter-spacing:.09em}
+
+  /* hero */
+  .hero{padding:88px 20px 48px;gap:36px}
+  h1{font-size:40px}
+  .hero-sub{font-size:15px;margin-bottom:22px}
+  .urgency-bar{font-size:12px;padding:8px 16px;margin-bottom:26px}
+  .hero-actions{flex-direction:column;align-items:stretch;gap:16px}
+  .btn-main{width:100%;text-align:center;padding:18px 24px}
+  .btn-ghost{align-self:center}
+  .hero-micro{text-align:center}
+
+  /* value card */
+  .value-card{padding:24px 18px}
+  .vs-list li{font-size:13px}
+  .vc-amount{font-size:38px}
+  .mini-row{grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .mini-box{padding:10px 6px}
+  .mini-n{font-size:20px}
+  .mini-l{font-size:9px}
+
+  /* sections */
+  section{padding:56px 20px}
+  .sec-lead{font-size:15px}
+  .problem-strip{padding:52px 20px}
+  .prob-tag{font-size:12px;padding:8px 14px}
+  .prob-note{font-size:17px}
+
+  /* offer card */
+  .single-card{padding:30px 20px;gap:32px}
+  .sc-badge{position:static;display:inline-block;margin-bottom:16px}
+  .sc-price-amount{font-size:48px}
+  .btn-sc{display:block;width:100%;text-align:center}
+
+  /* before & after */
+  .ba-grid{grid-template-columns:1fr;gap:16px}
+  .ba-wide{grid-column:span 1}
+  .ba-divider-pill{padding:3px 8px}
+
+  /* bonus, stack, how */
+  .bonus-grid{grid-template-columns:1fr}
+  .stack-table td{font-size:13px;padding:13px 8px}
+  .stack-table td:last-child{font-size:16px}
+  .stack-total td:last-child{font-size:30px}
+  .stack-note{padding:16px 18px;font-size:13px}
+  .how-grid{grid-template-columns:1fr 1fr;gap:28px 12px}
+  .how-step{padding:0 4px}
+
+  /* guarantee, scarcity, faq, final */
+  .guar-box{padding:32px 20px}
+  .guar-box h3{font-size:26px}
+  .scarcity{padding:52px 20px}
+  .credit-box{font-size:13px;padding:12px 18px}
+  .scarcity .btn-main,.final-cta .btn-main,.ba-section .btn-main{width:auto;display:inline-block;padding:17px 32px}
+  .final-cta{padding:76px 20px 64px}
+  .final-cta p{font-size:15px}
+
+  /* footer */
+  footer{flex-direction:column;text-align:center;gap:12px;padding:34px 20px;padding-bottom:calc(34px + env(safe-area-inset-bottom))}
+
+  /* sticky CTA */
+  .mobile-cta{display:flex}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Skin by <em>Laura Lo</em></a>
+  <div class="nav-links">
+    <a class="nav-link" href="#results">Results</a>
+    <a class="nav-link" href="#how">How it works</a>
+    <a class="nav-link" href="#faq">FAQ</a>
+    <a class="nav-cta" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Now — $100</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="eyebrow">Virtual Skin Reset · Anywhere in the U.S.</div>
+    <h1>Stop guessing<br>what your skin<br><em>actually needs.</em></h1>
+    <p class="hero-sub">Expert skincare guidance from a trained esthetician — from anywhere in the U.S. One 45-minute session. A custom plan that fits your real life. Three months of follow-up built in.</p>
+
+    <div class="urgency-bar">
+      <span class="pulse"></span>
+      <span>Only <strong>6 consultation spots</strong> remaining this month</span>
+    </div>
+
+    <div class="hero-actions">
+      <a class="btn-main" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Your Skin Reset — $100</a>
+      <a class="btn-ghost" href="#results">See real results ↓</a>
+    </div>
+    <p class="hero-micro">PDF guide delivered in 24 hrs · 3-month check-ins included · <strong>$50 credit</strong> toward your first order</p>
+  </div>
+
+  <div>
+    <div class="value-card">
+      <div class="vc-title">Everything included — total value</div>
+      <ul class="vs-list">
+        <li>
+          <span class="vs-name"><span class="chk"></span>45-min virtual consultation</span>
+          <span class="vs-val"><s>$150</s> included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>In-depth skin analysis + photo review</span>
+          <span class="vs-val">included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>Fully custom AM & PM regimen PDF</span>
+          <span class="vs-val">included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>Full product audit — keep, stop, or swap</span>
+          <span class="vs-val">included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>Lifestyle & diet skin factors review</span>
+          <span class="vs-val">included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>Monthly text check-ins × 3 months</span>
+          <span class="vs-val"><s>$90</s> included</span>
+        </li>
+        <li>
+          <span class="vs-name"><span class="chk"></span>$50 credit toward professional products</span>
+          <span class="vs-val"><s>$50</s> included</span>
+        </li>
+      </ul>
+      <div class="vc-total">
+        <div>
+          <div class="vc-total-label">Total value</div>
+          <div class="vc-total-sub">You pay just</div>
+        </div>
+        <div class="vc-price">
+          <div class="vc-orig">$400+</div>
+          <div class="vc-amount">$100</div>
+        </div>
+      </div>
+    </div>
+    <div class="mini-row">
+      <div class="mini-box"><div class="mini-n">45</div><div class="mini-l">Min session</div></div>
+      <div class="mini-box"><div class="mini-n">3mo</div><div class="mini-l">Check-ins</div></div>
+      <div class="mini-box"><div class="mini-n">$50</div><div class="mini-l">Product credit</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM STRIP -->
+<div class="problem-strip">
+  <div class="inner">
+    <h2>You've spent <em>hundreds on products</em> that haven't worked.</h2>
+    <div class="prob-tags">
+      <div class="prob-tag">Breakouts that keep coming back</div>
+      <div class="prob-tag">Melasma &amp; dark spots</div>
+      <div class="prob-tag">Post-inflammatory hyperpigmentation</div>
+      <div class="prob-tag">Damaged or sensitive barrier</div>
+      <div class="prob-tag">Dull, uneven skin tone</div>
+      <div class="prob-tag">Fine lines &amp; signs of aging</div>
+      <div class="prob-tag">No idea what order to apply things</div>
+      <div class="prob-tag">10 products, zero results</div>
+    </div>
+    <p class="prob-note">You're not doing it wrong — you just need the right plan for your skin.</p>
+  </div>
+</div>
+
+<!-- SINGLE SERVICE CARD -->
+<section class="service-section" id="book">
+  <div class="inner">
+    <div class="sec-eye">The offer</div>
+    <h2 class="sec-h">One session. A plan<br>that <em>actually works.</em></h2>
+
+    <div class="single-card">
+      <div class="sc-badge">Limited spots this month</div>
+
+      <div class="sc-left">
+        <div class="sc-tag">Signature · Virtual · U.S. Only</div>
+        <div class="sc-name">Virtual Skin<br>Reset</div>
+        <div class="sc-meta">
+          <span>45 minutes</span>
+          <span>Anywhere in the U.S.</span>
+        </div>
+        <p class="sc-desc">Whether you're dealing with acne, melasma, PIH, signs of aging, or just want to finally understand what your skin actually needs — this isn't a quiz or a generic routine. This is personalized guidance from a trained esthetician who gets it. Built around your skin, your life, your goals. No fluff, no guesswork.</p>
+        <div class="sc-price">
+          <div class="sc-price-amount">$100</div>
+          <div class="sc-price-note">One-time · Includes 3 months of follow-up support</div>
+        </div>
+        <a class="btn-sc" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Your Reset Now</a>
+      </div>
+
+      <div class="sc-right">
+        <div class="inc-title">Everything included</div>
+        <ul class="inc-list">
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>In-depth skin analysis</strong>Laura reviews your photos and consultation form before you even meet — so every minute counts.</div>
+          </li>
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>45-min deep-dive conversation</strong>Your skin, routine, lifestyle, preferences — a real conversation, not a script.</div>
+          </li>
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>Fully custom regimen PDF</strong>Step-by-step AM & PM routine built only for you, with application tips and lifestyle tweaks — yours to keep forever.</div>
+          </li>
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>Full product audit</strong>Keep, stop, or swap — Laura reviews everything you use so nothing goes to waste.</div>
+          </li>
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>Monthly check-ins × 3 months</strong>Laura texts you each month to track your progress and adjust your plan if anything shifts.</div>
+          </li>
+          <li>
+            <span class="inc-dot"></span>
+            <div><strong>Bonus: $50 product credit</strong>Applied to your first order of professional-grade skincare, shipped to your door.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE & AFTER -->
+<section class="ba-section" id="results">
+  <div class="inner">
+    <div class="sec-eye">Real clients · Real results</div>
+    <h2 class="sec-h">The glow speaks<br><em>for itself.</em></h2>
+    <p class="sec-lead">Every transformation below started with a personalized plan — exactly what you get in your Virtual Skin Reset.</p>
+
+    <div class="ba-grid">
+
+      <!-- Card 1 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-13-768x960.png" alt="Before and after treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+					<span class="ba-label-after">After</span>
+          <span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">Acne & Congestion</div>
+          <div class="ba-result">Cleared breakouts, calmed redness, restored barrier</div>
+          <div class="ba-timeline">Results after 6 weeks on custom routine</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-10-768x960.png" alt="Before and after treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+					<span class="ba-label-after">After</span>
+          <span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">Uneven Tone & Dullness</div>
+          <div class="ba-result">Brighter, more even complexion — glow restored</div>
+          <div class="ba-timeline">Results after 4 weeks on custom routine</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-16-768x960.png" alt="Before and after treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+					<span class="ba-label-after">After</span>
+          <span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">PIH & Post-Acne Marks</div>
+          <div class="ba-result">Dark marks fading, texture smoother, confidence back</div>
+          <div class="ba-timeline">Results after 8 weeks on custom routine</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-1-768x960.png" alt="After treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+          <span class="ba-label-after">After</span>
+					<span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">Barrier Damage & Dryness</div>
+          <div class="ba-result">Barrier rebuilt, dryness gone, skin visibly plumper</div>
+          <div class="ba-timeline">Results after 3 weeks on custom routine</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-8-768x960.png" alt="Before and after treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+					<span class="ba-label-after">After</span>
+          <span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">Melasma & Hyperpigmentation</div>
+          <div class="ba-result">Pigmentation visibly reduced, skin tone evening out</div>
+          <div class="ba-timeline">Results after 10 weeks on custom routine</div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="ba-card">
+        <div class="ba-images" style="position:relative">
+          <img src="https://skinbylauralo.com/wp-content/uploads/2026/03/Longer-Before-and-Afters-4-768x960.png" alt="Before and after treatment" loading="lazy">
+          <div class="ba-divider">
+            <div class="ba-divider-pill"><span>Before</span><span>After</span></div>
+          </div>
+					<span class="ba-label-after">After</span>
+          <span class="ba-label-before">Before</span>
+        </div>
+        <div class="ba-info">
+          <div class="ba-concern">Acne & Redness</div>
+          <div class="ba-result">Active breakouts controlled, inflammation calmed</div>
+          <div class="ba-timeline">Results after 5 weeks on custom routine</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CTA under B&A -->
+    <div style="text-align:center;margin-top:44px">
+      <p style="font-family:var(--serif);font-style:italic;font-size:21px;color:var(--bark);margin-bottom:20px">Your results start with one session.</p>
+      <a class="btn-main" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Your Virtual Skin Reset — $100</a>
+    </div>
+  </div>
+</section>
+
+<!-- BONUS BREAKDOWN -->
+<section class="bonus-section">
+  <div class="inner">
+    <div class="sec-eye">What's inside the $100</div>
+    <h2 class="sec-h">Every piece was<br><em>designed</em> to get you results</h2>
+    <div class="bonus-grid">
+      <div class="bonus-card">
+        <span class="b-icon">🔬</span>
+        <div class="b-name">Deep-Dive Skin Analysis</div>
+        <div class="b-val">Included — worth $80+</div>
+        <p class="b-desc">Laura reviews your submitted photos and your detailed consultation form before you even meet — so your 45 minutes are spent on solutions, not setup.</p>
+      </div>
+      <div class="bonus-card">
+        <span class="b-icon">📋</span>
+        <div class="b-name">Personalized PDF Guide</div>
+        <div class="b-val">Included — worth $60+</div>
+        <p class="b-desc">Your full custom regimen, step-by-step application instructions, realistic skin habits, and lifestyle tweaks — yours to keep and reference forever.</p>
+      </div>
+      <div class="bonus-card">
+        <span class="b-icon">💬</span>
+        <div class="b-name">3 Months of Text Check-ins</div>
+        <div class="b-val">Included — worth $90</div>
+        <p class="b-desc">Monthly follow-ups directly with Laura. Track progress, adjust your regimen if anything isn't working, and keep your skin moving forward — not just a plan and a goodbye.</p>
+      </div>
+      <div class="bonus-card">
+        <span class="b-icon">✦</span>
+        <div class="b-name">$50 Product Credit</div>
+        <div class="b-val">Cash value — yours immediately</div>
+        <p class="b-desc">Applied to your first skincare order. Professional-grade products curated by Laura, shipped straight to your door. The credit alone covers half your investment.</p>
+      </div>
+      <div class="bonus-card">
+        <span class="b-icon">🌿</span>
+        <div class="b-name">Holistic Skin Review</div>
+        <div class="b-val">Included</div>
+        <p class="b-desc">Diet, lifestyle, stress, hormones, medications — Laura looks at every factor influencing your skin, because topical products alone rarely fix the full picture.</p>
+      </div>
+      <div class="bonus-card">
+        <span class="b-icon">📦</span>
+        <div class="b-name">Professional Skincare Access</div>
+        <div class="b-val">Shipped to your door · U.S. only</div>
+        <p class="b-desc">Access to the same professional-grade products Laura uses and recommends in-person — shipped directly to you with your personalized routine built around them.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE STACK -->
+<section class="stack-section">
+  <div class="inner">
+    <div class="sec-eye">The value equation</div>
+    <h2 class="sec-h">What would this cost<br>if you built it <em>yourself?</em></h2>
+    <div class="stack-wrap">
+      <table class="stack-table">
+        <tr><td>45-min virtual consultation with esthetician</td><td>$120 – $150</td></tr>
+        <tr><td>Personalized skincare regimen PDF</td><td>$60 – $80</td></tr>
+        <tr><td>Full product audit + shopping list</td><td>$40 – $60</td></tr>
+        <tr><td>3 months of professional follow-up support</td><td>$90 – $120</td></tr>
+        <tr><td>$50 product credit (cash value)</td><td>$50</td></tr>
+        <tr><td>Holistic lifestyle &amp; diet review</td><td>$40</td></tr>
+        <tr class="stack-total"><td>Total value</td><td>$400 – $500</td></tr>
+        <tr class="stack-you"><td><strong>You pay today</strong></td><td><strong>$100</strong></td></tr>
+      </table>
+      <div class="stack-note">
+        <span style="font-size:20px">💡</span>
+        <span>The $50 product credit covers half your investment the moment you place your first order. You're effectively paying <strong>$50 for everything</strong> on this list.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="inner">
+    <div class="sec-eye">The process</div>
+    <h2 class="sec-h">Four steps.<br><em>Effortless.</em></h2>
+    <div class="how-grid">
+      <div class="how-step">
+        <div class="how-circle">1</div>
+        <h4>Book & Complete Form</h4>
+        <p>Book your session. You'll get a skin intake form and photo instructions immediately.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-circle">2</div>
+        <h4>Submit Photos & Products</h4>
+        <p>Clear, makeup-free skin photos and pictures of every product you currently use — 24 hours before your appointment.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-circle">3</div>
+        <h4>Your 45-Min Session</h4>
+        <p>A real conversation with Laura — your skin, routine, lifestyle, and goals. Not a script.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-circle">4</div>
+        <h4>Plan + 3 Months of Support</h4>
+        <p>Your PDF guide in your inbox within 24 hours, then monthly check-ins for three months straight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="guar-section">
+  <div class="inner">
+    <div style="text-align:center">
+      <div class="sec-eye">Risk-free</div>
+      <h2 class="sec-h">Your skin wins — <em>guaranteed.</em></h2>
+    </div>
+    <div class="guar-box">
+      <div class="guar-seal">
+        <div class="gs-n">100%</div>
+        <div class="gs-s">Guaranteed</div>
+      </div>
+      <h3>If it's not right, <em>Laura will fix it.</em></h3>
+      <p>If your skin isn't responding well or the routine doesn't feel right within 30 days, Laura will personally review it and revise your plan at no additional cost. You're not buying a document. You're starting a skin journey with someone who stays accountable to your results.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="proof-section">
+  <div class="inner">
+    <div class="sec-eye">Client love</div>
+    <h2 class="sec-h">What they're saying <em>after.</em></h2>
+    <div class="reviews-grid">
+      <div class="rv-card">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"I had no idea half my products were canceling each other out. My skin cleared up in two weeks after following her routine."</p>
+        <div class="rv-name">— Camila R., Tampa, FL</div>
+      </div>
+      <div class="rv-card">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"The monthly check-ins alone are worth every penny. Laura actually tracks your progress — she's invested in your skin, not just your booking."</p>
+        <div class="rv-name">— Daniela M., Miami, FL</div>
+      </div>
+      <div class="rv-card">
+        <div class="stars">★★★★★</div>
+        <p class="rv-text">"My PIH from old acne is finally fading. The PDF guide is something I reference every single day. Changed how I take care of my skin."</p>
+        <div class="rv-name">— Sofia L., Atlanta, GA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCARCITY STRIP -->
+<div class="scarcity">
+  <div class="sc-inner">
+    <div class="spot-pill">
+      <span class="pulse"></span>
+      6 consultation spots remaining this month
+    </div>
+    <h2>The longer you wait,<br>the longer your skin<br><em>stays confused.</em></h2>
+    <p>Every week without a real plan is another week of guessing, wasted money on the wrong products, and skin that isn't moving in the right direction. One 45-minute session changes all of that.</p>
+    <div class="credit-box">💳 Your $50 product credit expires 60 days after your consultation</div>
+    <br><br>
+    <a class="btn-main" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Your Virtual Skin Reset — $100</a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="inner">
+    <div class="sec-eye">Questions</div>
+    <h2 class="sec-h">Everything you want<br>to <em>know first</em></h2>
+    <div class="faq-grid">
+      <div>
+        <p class="faq-q">Is this worth it without an in-person facial?</p>
+        <p class="faq-a">Yes — and often more so. Most skin frustration comes from using the wrong products in the wrong order, not from skipping facials. The right routine consistently applied at home creates more long-term change than a single treatment. Laura's training means every recommendation is backed by real clinical knowledge, not a quiz algorithm.</p>
+      </div>
+      <div>
+        <p class="faq-q">What do I need to prepare?</p>
+        <p class="faq-a">Complete the skin intake form and submit clear, makeup-free photos of your skin (front, side, close-up) plus photos of every product you currently use — at least 24 hours before your appointment. That's it.</p>
+      </div>
+      <div>
+        <p class="faq-q">What skin concerns can Laura help with?</p>
+        <p class="faq-a">Acne, melasma, post-inflammatory hyperpigmentation (PIH), barrier damage, dryness, dullness, uneven texture, and signs of aging. Laura also covers lifestyle, diet, stress, hormones, and any medications that may be affecting your skin.</p>
+      </div>
+      <div>
+        <p class="faq-q">How do the 3-month check-ins work?</p>
+        <p class="faq-a">Once a month for three months after your consultation, Laura reaches out via text to check in on your skin's progress. If something isn't working — a product irritates you, your skin shifts — she'll adjust your routine. You're not left alone after the call.</p>
+      </div>
+      <div>
+        <p class="faq-q">Do I have to buy from your store?</p>
+        <p class="faq-a">No. Laura recommends from her curated professional range first, but accessible alternatives are included for every budget. The $50 credit is there when you're ready to try professional-grade products — zero pressure.</p>
+      </div>
+      <div>
+        <p class="faq-q">When will I see real changes?</p>
+        <p class="faq-a">Most clients notice meaningful improvement within 2–4 weeks of consistently following their custom routine. Acne can shift faster, while melasma and PIH take longer — which is exactly why the 3-month check-in structure exists.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <h2>Your clearest skin<br>starts with one <em>decision.</em></h2>
+  <p>A 45-minute session. A plan built for your skin. Three months of Laura in your corner. And $50 back the moment you order.</p>
+  <a class="btn-main" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Your Virtual Skin Reset — $100</a>
+  <p class="final-micro">
+    <strong>$50 product credit</strong> · 3-month text check-ins · Satisfaction guaranteed · Delivered within 24 hours · U.S. only
+  </p>
+</div>
+
+<!-- STICKY MOBILE CTA -->
+<div class="mobile-cta">
+  <div class="mobile-cta-text"><strong>$100</strong> 6 spots left this month</div>
+  <a class="mobile-cta-btn" href="https://book.squareup.com/appointments/rlfhvfyu6b6ltd/location/L8PR20K5XBXVQ/availability">Book Now</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">Skin by <em>Laura Lo</em></div>
+  <p>307 South Blvd, Suite D · Tampa, FL 33606</p>
+  <div class="f-links">
+    <a href="https://skinbylauralo.com">Website</a>
+    <a href="https://skinbylauralo.com/shop">Shop</a>
+    <a href="https://skinbylauralo.com/gallery">Gallery</a>
+  </div>
+</footer>
+
+</body>
+</html>
