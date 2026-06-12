@@ -18,7 +18,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           # Adjust this to the exact path on your server where you want the page.
           # Example: /public_html/virtual-skin-reset/ → accessible at yourdomain.com/virtual-skin-reset/
-          server-dir: /public_html/virtual-skin-reset/
+          server-dir: /skinbylauralo.com/virtual-skin-reset/
           local-dir: ./
           exclude: |
             **/.git*
